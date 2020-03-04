@@ -104,7 +104,7 @@ function install_docker() {
 
         docker -v
 
-        if [[ $? -eq  0 ]]; then
+        if [[ $? -ne  0 ]]; then
             echo "Install docker failed"
             return 1
         fi
@@ -115,7 +115,7 @@ function install_docker() {
 
 function download_zookeeper() {
     wget http://apache.fayea.com/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz
-    if [[ $? -eq  0 ]]; then
+    if [[ $? -ne  0 ]]; then
         echo "download zookeeper failed"
         return 1
     fi
@@ -124,7 +124,7 @@ function download_zookeeper() {
 function install_docker-compose() {
 	echo "check docker-compose ..."
 	docker-compose -v
-    if [[ $? -eq  0 ]]; then
+    if [[ $? -ne  0 ]]; then
         echo "docker-compose already installed"
     else
     	echo "install docker-compose ..."
@@ -134,7 +134,7 @@ function install_docker-compose() {
 
         docker-compose -v
 
-        if [[ $? -eq  0 ]]; then
+        if [[ $? -ne  0 ]]; then
             echo "install docker-compose failed"
             return 1
         fi
@@ -145,7 +145,7 @@ function install_docker-compose() {
 
 function init_env() {
     install_docker
-    if [[ $? -eq  0 ]]; then
+    if [[ $? -ne  0 ]]; then
         exit 1
     fi
 
@@ -153,12 +153,12 @@ function init_env() {
     sudo systemctl start docker
 
     install_docker-compose
-    if [[ $? -eq  0 ]]; then
+    if [[ $? -ne  0 ]]; then
         exit 1
     fi
 
     download_zookeeper
-    if [[ $? -eq  0 ]]; then
+    if [[ $? -ne  0 ]]; then
         exit 1
     fi
 }
